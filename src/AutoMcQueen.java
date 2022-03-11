@@ -21,4 +21,9 @@ public class AutoMcQueen extends Auto{
         setDistanciaRecorrida(nuevaDistancia + getDistanciaRecorrida());
         return getDistanciaRecorrida();
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "McQueen";
+    }
 }

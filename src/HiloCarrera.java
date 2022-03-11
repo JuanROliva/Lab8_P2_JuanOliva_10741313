@@ -14,6 +14,9 @@ public class HiloCarrera implements Runnable{
     private DefaultTableModel modeloTabla;
     private Pista pista;
 
+    public HiloCarrera() {
+    }
+    
     public HiloCarrera(JProgressBar barra, boolean continuar, JTable tablaPosiciones, DefaultTableModel modeloTabla, Pista pista) {
         this.barra = barra;
         this.continuar = continuar;
@@ -80,6 +83,8 @@ public class HiloCarrera implements Runnable{
                     a.agregarDistancia();
                     if (distanciaMax<a.getDistanciaRecorrida()) {
                         distanciaMax = a.getDistanciaRecorrida();
+                        barra.setValue(distanciaMax);
+                        actulizarModeloyTabla();
                     }
                     if (a.getDistanciaRecorrida()>= pista.getLongitudPista()) {
                         JOptionPane.showMessageDialog(null, "Gano "+ a.getNombreCorredor());
@@ -90,4 +95,13 @@ public class HiloCarrera implements Runnable{
             }
         }
     }
+    
+    public void actulizarModeloyTabla(){
+        modeloTabla.setRowCount(0);
+        for (Auto competidore : competidores) {
+            modeloTabla.addRow(competidore.aFilas());
+        }
+        tablaPosiciones.setModel(modeloTabla);
+    }
+    
 }

@@ -21,4 +21,11 @@ public class AutoConvertible extends Auto{
         setDistanciaRecorrida(nuevaDistancia + getDistanciaRecorrida());
         return getDistanciaRecorrida();
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "Convertible";
+    }
+    
+    
 }
