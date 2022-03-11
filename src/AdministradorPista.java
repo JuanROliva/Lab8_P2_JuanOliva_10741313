@@ -7,21 +7,21 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-public class AdministradorAutos {
+public class AdministradorPista {
     
-    private ArrayList<Auto> listaAutos = new ArrayList<Auto>();
+    private Pista pista;
     private File archivo = null;
 
-    public AdministradorAutos(String path) {
-        archivo = new File(path);
+    public AdministradorPista(String path) {
+        this.archivo = new File(path);
     }
 
-    public ArrayList<Auto> getListaAutos() {
-        return listaAutos;
+    public Pista getPista() {
+        return pista;
     }
 
-    public void setListaAutos(ArrayList<Auto> listaAutos) {
-        this.listaAutos = listaAutos;
+    public void setPista(Pista pista) {
+        this.pista = pista;
     }
 
     public File getArchivo() {
@@ -37,16 +37,13 @@ public class AdministradorAutos {
             if (!archivo.exists()) {
                 return;
             }
-            Auto auto;
             FileInputStream fis = new FileInputStream(archivo);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            while ((auto = (Auto)ois.readObject())!= null) {
-                listaAutos.add(auto);
-            }
+            pista = (Pista) ois.readObject();
             ois.close();
             fis.close();
         } catch (Exception e) {
-            System.out.println("Error en lectura auto");
+            System.out.println("Error en lectura pista");
         }
     }
     
@@ -54,16 +51,12 @@ public class AdministradorAutos {
         try {
             FileOutputStream fos = new FileOutputStream(archivo);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            for (Auto a : listaAutos) {
-                oos.writeObject(a);
-            }
+            oos.writeObject(pista);
             oos.flush();
             oos.close();
             fos.close();
         } catch (Exception e) {
-            System.out.println("Error en escritura auto");
+            System.out.println("Error en escritura pista");
         }
     }
-    
-    
 }
