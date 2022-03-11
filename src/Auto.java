@@ -62,4 +62,8 @@ public abstract class Auto {
         this.distanciaRecorrida = 0;
     }
     
+    public Object[] aFilas(){
+        Object[] fila = {numeroIdentificador,nombreCorredor,distanciaRecorrida};
+        return fila;
+    }
 }
