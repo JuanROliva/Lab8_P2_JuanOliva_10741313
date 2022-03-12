@@ -12,6 +12,7 @@ public class main extends javax.swing.JFrame {
         this.pack();
         this.setLocationRelativeTo(null);
         iniciarModeloTabla();
+        cargarDatos();
         
     }
 
@@ -55,6 +56,11 @@ public class main extends javax.swing.JFrame {
         getContentPane().add(bt_comenzarCarrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 27, -1, -1));
 
         bt_pausarCarrera.setText("Pausar");
+        bt_pausarCarrera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_pausarCarreraActionPerformed(evt);
+            }
+        });
         getContentPane().add(bt_pausarCarrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(116, 27, -1, -1));
 
         lb_pista.setText("Nombre Pista y Longitud");
@@ -132,7 +138,7 @@ public class main extends javax.swing.JFrame {
         jLabel7.setText("Longitud");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 390, 84, -1));
 
-        tf_logitudPista.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        tf_logitudPista.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###0"))));
         getContentPane().add(tf_logitudPista, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 389, 126, -1));
         getContentPane().add(tf_nombrePista, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 360, 126, -1));
 
@@ -180,6 +186,7 @@ public class main extends javax.swing.JFrame {
             tf_identidificador.setText("");
             tf_nombreCorredor.setText("");
             cb_corredoresDisponibles.setSelectedIndex(0);
+            escribirDatos();
         }else{
             JOptionPane.showMessageDialog(this, "El identificador ya esta registrado");
         }
@@ -194,11 +201,13 @@ public class main extends javax.swing.JFrame {
         pista.setNombrePista(nombre);
         pista.setLongitudPista(longitud);
         lb_pista.setText(pista.toString());
+        escribirDatos();
     }//GEN-LAST:event_bt_crearPistaActionPerformed
 
     private void bt_restablecerPistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_restablecerPistaActionPerformed
         pista = new Pista();
         lb_pista.setText("Cree una nueva pista");
+        escribirDatos();
     }//GEN-LAST:event_bt_restablecerPistaActionPerformed
 
     private void bt_AgregarCorredorCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_AgregarCorredorCarreraActionPerformed
@@ -206,9 +215,15 @@ public class main extends javax.swing.JFrame {
             agregarTablaCompetidores((Auto)cb_corredoresDisponibles.getSelectedItem());
             modeloComboCompetidores.removeElement(cb_corredoresDisponibles.getSelectedItem());
         }
+        escribirDatos();
     }//GEN-LAST:event_bt_AgregarCorredorCarreraActionPerformed
 
     private void bt_comenzarCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_comenzarCarreraActionPerformed
+        if (pista.getLongitudPista()<=0) {
+            JOptionPane.showMessageDialog(this, "Agrege una pista");
+            return;
+        }
+        
         if (modeloTableCompetidores.getRowCount()>1) {
             hiloCarrera = new HiloCarrera(progressBar, condicion, tablaCorredores, modeloTableCompetidores, pista);
             hiloCarrera.setCompetidores(competidores);
@@ -218,6 +233,10 @@ public class main extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Deben haber al menos dos comperidores");
         }
     }//GEN-LAST:event_bt_comenzarCarreraActionPerformed
+
+    private void bt_pausarCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_pausarCarreraActionPerformed
+        hiloCarrera.setContinuar(!hiloCarrera.isContinuar());
+    }//GEN-LAST:event_bt_pausarCarreraActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -287,7 +306,7 @@ public class main extends javax.swing.JFrame {
     DefaultTableModel modeloTableCompetidores = new DefaultTableModel();
     HiloCarrera hiloCarrera = new HiloCarrera();
     
-    boolean condicion = false;
+    boolean condicion = true;
     
     public void iniciarModeloTabla(){
         modeloTableCompetidores = (DefaultTableModel)tablaCorredores.getModel();
@@ -316,6 +335,7 @@ public class main extends javax.swing.JFrame {
     
     public void agregarTablaCompetidores(Auto a){
         modeloTableCompetidores.addRow(a.aFilas());
+        competidores.add(a);
         tablaCorredores.setModel(modeloTableCompetidores);
     }
     
@@ -323,6 +343,7 @@ public class main extends javax.swing.JFrame {
         baseAutos.cargarArchivo();
         this.listaAutos = baseAutos.getListaAutos();
         pista = basePista.getPista();
+        System.out.println(listaAutos);
     }
     
     public void escribirDatos(){

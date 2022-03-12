@@ -41,6 +41,7 @@ public class AdministradorAutos {
             FileInputStream fis = new FileInputStream(archivo);
             ObjectInputStream ois = new ObjectInputStream(fis);
             while ((auto = (Auto)ois.readObject())!= null) {
+                System.out.println("aqui");
                 listaAutos.add(auto);
             }
             ois.close();
