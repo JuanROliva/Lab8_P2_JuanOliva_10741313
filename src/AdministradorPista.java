@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 
 public class AdministradorPista {
     
-    private Pista pista;
+    private Pista pista = new Pista();
     private File archivo = null;
 
     public AdministradorPista(String path) {

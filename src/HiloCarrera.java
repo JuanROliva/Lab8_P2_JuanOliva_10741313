@@ -92,8 +92,8 @@ public class HiloCarrera implements Runnable{
                         distanciaMax = a.getDistanciaRecorrida();
                         barra.setBackground(a.getColorAuto());
                         barra.setValue(distanciaMax);
-                        ordenarPosiciones();
-                        //actulizarModeloyTabla();
+                        //ordenarPosiciones();
+                        actulizarModeloyTabla();
                     }
                     if (a.getDistanciaRecorrida()>= pista.getLongitudPista()) {
                         JOptionPane.showMessageDialog(null, "Gano "+ a.getNombreCorredor());

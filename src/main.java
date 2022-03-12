@@ -12,7 +12,7 @@ public class main extends javax.swing.JFrame {
         this.pack();
         this.setLocationRelativeTo(null);
         iniciarModeloTabla();
-        cargarDatos();
+        //cargarDatos();
         
     }
 
@@ -186,7 +186,7 @@ public class main extends javax.swing.JFrame {
             tf_identidificador.setText("");
             tf_nombreCorredor.setText("");
             cb_corredoresDisponibles.setSelectedIndex(0);
-            escribirDatos();
+            //escribirDatos();
         }else{
             JOptionPane.showMessageDialog(this, "El identificador ya esta registrado");
         }
@@ -201,13 +201,13 @@ public class main extends javax.swing.JFrame {
         pista.setNombrePista(nombre);
         pista.setLongitudPista(longitud);
         lb_pista.setText(pista.toString());
-        escribirDatos();
+        //escribirDatos();
     }//GEN-LAST:event_bt_crearPistaActionPerformed
 
     private void bt_restablecerPistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_restablecerPistaActionPerformed
         pista = new Pista();
         lb_pista.setText("Cree una nueva pista");
-        escribirDatos();
+        //escribirDatos();
     }//GEN-LAST:event_bt_restablecerPistaActionPerformed
 
     private void bt_AgregarCorredorCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_AgregarCorredorCarreraActionPerformed
@@ -215,7 +215,6 @@ public class main extends javax.swing.JFrame {
             agregarTablaCompetidores((Auto)cb_corredoresDisponibles.getSelectedItem());
             modeloComboCompetidores.removeElement(cb_corredoresDisponibles.getSelectedItem());
         }
-        escribirDatos();
     }//GEN-LAST:event_bt_AgregarCorredorCarreraActionPerformed
 
     private void bt_comenzarCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_comenzarCarreraActionPerformed

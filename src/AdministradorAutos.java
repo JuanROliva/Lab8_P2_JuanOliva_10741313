@@ -37,13 +37,10 @@ public class AdministradorAutos {
             if (!archivo.exists()) {
                 return;
             }
-            Auto auto;
+            listaAutos = new ArrayList<>();
             FileInputStream fis = new FileInputStream(archivo);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            while ((auto = (Auto)ois.readObject())!= null) {
-                System.out.println("aqui");
-                listaAutos.add(auto);
-            }
+            listaAutos = (ArrayList<Auto>)ois.readObject();
             ois.close();
             fis.close();
         } catch (Exception e) {
@@ -55,9 +52,7 @@ public class AdministradorAutos {
         try {
             FileOutputStream fos = new FileOutputStream(archivo);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            for (Auto a : listaAutos) {
-                oos.writeObject(a);
-            }
+            oos.writeObject(listaAutos);
             oos.flush();
             oos.close();
             fos.close();
